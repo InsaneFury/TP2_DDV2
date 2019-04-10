@@ -13755,8 +13755,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 281018775224294488, guid: b80530397e48a7a4395505743d0a8fd1, type: 3}
   center: {x: 9.7, y: 1.91, z: 2.03}
-  size: {x: 17.95, y: 1.63, z: 15.3}
-  amount: 20
+  size: {x: 15.9, y: 1.63, z: 15.3}
+  amount: 500
+  explosiveModeOn: 1
+  explosionRadius: 100
+  explosionForce: 1000
 --- !u!4 &1800373956
 Transform:
   m_ObjectHideFlags: 0

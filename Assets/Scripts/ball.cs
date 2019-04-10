@@ -42,7 +42,11 @@ public class ball : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+        if(alreadyShooted == false) {
+            rb.constraints = RigidbodyConstraints.FreezePositionX;
+        }
+
         powerText.text = impulseSpeed.ToString();
         powerBar.value = impulseSpeed / 1000f + 0.2f;
         moveHorizontal = Input.GetAxis("Horizontal");
