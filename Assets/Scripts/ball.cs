@@ -90,4 +90,8 @@ public class ball : MonoBehaviour
         rb.isKinematic = false;
         StopCoroutine("resetBallPos");
     }
+
+    public void activeSlowMoBTN() {
+        activeSlowmo = !activeSlowmo;
+    }
 }
