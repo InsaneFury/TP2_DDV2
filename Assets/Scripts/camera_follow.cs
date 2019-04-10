@@ -21,8 +21,7 @@ public class camera_follow : MonoBehaviour
     {
         if (nonStop) {
             cam.transform.position = new Vector3(target.transform.position.x + offset, transform.position.y, transform.position.z);
-        }
-        
+        }  
     }
             
 }

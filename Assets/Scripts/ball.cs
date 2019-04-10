@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class ball : MonoBehaviour
 {
@@ -16,8 +17,12 @@ public class ball : MonoBehaviour
     public float maxImpulseSpeed;
     public float minImpulseSpeed;
     public float impulseSum;
-    bool alreadyShooted;
+    public bool alreadyShooted;
+    public bool activeSlowmo = false;
+    public float resetTime;
+    Vector3 defaultPos;
     Rigidbody rb;
+    public Slider powerBar;
 
     //UI
     public TextMeshProUGUI powerText;
@@ -32,16 +37,19 @@ public class ball : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         minImpulseSpeed = 200f;
         impulseSpeed = minImpulseSpeed;
+        defaultPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
         powerText.text = impulseSpeed.ToString();
+        powerBar.value = impulseSpeed / 1000f + 0.2f;
         moveHorizontal = Input.GetAxis("Horizontal");
         if (moveHorizontal != 0 && (alreadyShooted == false)) {
             rb.AddForce(new Vector3(0f, 0f, moveHorizontal * moveSpeed * Time.fixedDeltaTime),ForceMode.VelocityChange);
         }
+
         if (Input.GetButton("Jump") && (alreadyShooted == false)) {
 
             impulseSpeed+=impulseSum;
@@ -51,16 +59,35 @@ public class ball : MonoBehaviour
                 }  
             }     
         }
-        if (Input.GetKeyUp("space")) {
-            rb.AddForce(Vector3.left * impulseSpeed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+        if (Input.GetKeyUp("space") && (alreadyShooted == false) 
+            && GameObject.FindGameObjectWithTag("gameManager").GetComponent<scoreManager>().shoots > 0) {
+            rb.AddForce(Vector3.left * impulseSpeed * Time.fixedDeltaTime, ForceMode.Impulse);
             alreadyShooted = true;
+            GameObject.FindGameObjectWithTag("gameManager").GetComponent<scoreManager>().shoots--;
         }
     }
 
     void OnTriggerEnter(Collider col) {
-        if(col.CompareTag("camLimit")) {
+        if(col.CompareTag("camLimit") && activeSlowmo) {
             tm.DoSlowmo();
         }
-        
+        if (col.CompareTag("canaleta")) {
+            StartCoroutine(resetBallPos(resetTime));
+        }
+    }
+    private void OnCollisionEnter(Collision collision) {
+        if (collision.collider.CompareTag("canaleta")) {
+            StartCoroutine(resetBallPos(resetTime));
+        }
+    }
+
+    public IEnumerator resetBallPos(float time) {
+        yield return new WaitForSeconds(time);
+        transform.position = defaultPos;
+        alreadyShooted = false;
+        camera_follow.nonStop = true;
+        rb.isKinematic = true;
+        rb.isKinematic = false;
+        StopCoroutine("resetBallPos");
     }
 }
