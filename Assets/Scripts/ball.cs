@@ -24,6 +24,8 @@ public class ball : MonoBehaviour
     Vector3 defaultPos;
     Rigidbody rb;
     public Slider powerBar;
+
+    [HideInInspector]
     public scoreManager ScoreManager;
 
     //UI
@@ -35,8 +37,7 @@ public class ball : MonoBehaviour
     public timeManager tm;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start(){
         ScoreManager = GameObject.FindGameObjectWithTag("gameManager").GetComponent<scoreManager>();
         alreadyShooted = false;
         rb = GetComponent<Rigidbody>();
@@ -45,17 +46,15 @@ public class ball : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {   
+    void Update(){   
         powerText.text = impulseSpeed.ToString();
         powerBar.value = impulseSpeed / 1000f + 0.2f;
         moveHorizontal = Input.GetAxis("Horizontal");
         if (moveHorizontal != 0 && (alreadyShooted == false)) {
-            rb.AddForce(new Vector3(0f, 0f, moveHorizontal * moveSpeed * Time.fixedDeltaTime),ForceMode.VelocityChange);
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveHorizontal * Time.deltaTime);
         }
 
         if (Input.GetButton("Jump") && (alreadyShooted == false)) {
-
             impulseSpeed+=impulseSum;
             if(impulseSpeed >= maxImpulseSpeed) {
                 impulseSpeed = minImpulseSpeed;  
@@ -79,7 +78,7 @@ public class ball : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision) {
         if (collision.collider.CompareTag("canaleta")) {
-            StartCoroutine(resetBallPos(resetTime));
+            //StartCoroutine(resetBallPos(resetTime));
         }
     }
 
