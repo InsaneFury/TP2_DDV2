@@ -8,6 +8,7 @@ public class ball : MonoBehaviour
 {
 
     //Ball
+    [Header("Variables")]
     float moveHorizontal;
     public float moveSpeed;
     public float rotationSpeed;
@@ -23,19 +24,22 @@ public class ball : MonoBehaviour
     Vector3 defaultPos;
     Rigidbody rb;
     public Slider powerBar;
+    public scoreManager ScoreManager;
 
     //UI
+    [Header("UI")]
     public TextMeshProUGUI powerText;
 
     //Time FX
+    [Header("FX")]
     public timeManager tm;
 
     // Start is called before the first frame update
     void Start()
     {
+        ScoreManager = GameObject.FindGameObjectWithTag("gameManager").GetComponent<scoreManager>();
         alreadyShooted = false;
         rb = GetComponent<Rigidbody>();
-        minImpulseSpeed = 200f;
         impulseSpeed = minImpulseSpeed;
         defaultPos = transform.position;
     }
@@ -43,10 +47,6 @@ public class ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        if(alreadyShooted == false) {
-            rb.constraints = RigidbodyConstraints.FreezePositionX;
-        }
-
         powerText.text = impulseSpeed.ToString();
         powerBar.value = impulseSpeed / 1000f + 0.2f;
         moveHorizontal = Input.GetAxis("Horizontal");
@@ -58,16 +58,14 @@ public class ball : MonoBehaviour
 
             impulseSpeed+=impulseSum;
             if(impulseSpeed >= maxImpulseSpeed) {
-                while(impulseSpeed > minImpulseSpeed) {
-                    impulseSpeed -= impulseSum;
-                }  
+                impulseSpeed = minImpulseSpeed;  
             }     
         }
         if (Input.GetKeyUp("space") && (alreadyShooted == false) 
-            && GameObject.FindGameObjectWithTag("gameManager").GetComponent<scoreManager>().shoots > 0) {
+            && ScoreManager.shoots > 0) {
             rb.AddForce(Vector3.left * impulseSpeed * Time.fixedDeltaTime, ForceMode.Impulse);
             alreadyShooted = true;
-            GameObject.FindGameObjectWithTag("gameManager").GetComponent<scoreManager>().shoots--;
+            ScoreManager.shoots--;
         }
     }
 
