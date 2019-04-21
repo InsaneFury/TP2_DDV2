@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class pin : MonoBehaviour
+public class Pin : MonoBehaviour
 {
     [Header("PinSettings")]
     public float time;
@@ -19,7 +19,7 @@ public class pin : MonoBehaviour
         originalPos = transform;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (transform.localEulerAngles.z > maxAngleToBeDeleted || transform.localEulerAngles.z < minAngleToBeDeleted ||
             transform.localEulerAngles.x > maxAngleToBeDeleted || transform.localEulerAngles.x < minAngleToBeDeleted)
@@ -28,6 +28,7 @@ public class pin : MonoBehaviour
             {
                 ScoreManager.Instance().score += ScoreManager.Instance().scoreValue;
                 pinOut = true;
+                ScoreManager.Instance().pinCount--;
                 StartCoroutine(HideDropedPines(time));
             }
         }

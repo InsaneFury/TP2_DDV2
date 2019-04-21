@@ -16,8 +16,9 @@ public class ScoreManager : MonoBehaviour
     public int scoreValue;
     public int scoreToWin;
     public int shoots;
+    public int pinCount;
 
-    ball player;
+    Ball player;
     private static ScoreManager instance;
 
     void Awake()
@@ -40,15 +41,16 @@ public class ScoreManager : MonoBehaviour
 
     void Start()
     {
+        pinCount = 10;
         score = 0;
-        player = GameObject.FindGameObjectWithTag("ball").GetComponent<ball>();
+        player = GameObject.FindGameObjectWithTag("ball").GetComponent<Ball>();
     }
 
     void Update()
     {
         scoreUI.text = score.ToString();
         shootsUI.text = shoots.ToString();
-        if (shoots == 0 && score < scoreToWin)
+        if ((score < scoreToWin && pinCount > 0)&& player.noMoreShoots)
         {
             player.alreadyShooted = true;
             loseUI.SetActive(true);

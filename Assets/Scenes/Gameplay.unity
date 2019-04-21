@@ -213,7 +213,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 53185755}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -221,13 +221,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!4 &53185760 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 044e50ba66b4e6746a80fe3506f08e31,
-    type: 3}
-  m_PrefabInstance: {fileID: 53185754}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &53185761
+--- !u!114 &53185758
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -239,8 +233,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204ab59934b2edb4788a10bf6fe148c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floor: {fileID: 1257762278}
-  time: 2
+  time: 3
+  minAngleToBeDeleted: -80
+  maxAngleToBeDeleted: 80
+--- !u!4 &53185760 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 044e50ba66b4e6746a80fe3506f08e31,
+    type: 3}
+  m_PrefabInstance: {fileID: 53185754}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &70162024
 GameObject:
   m_ObjectHideFlags: 0
@@ -3069,7 +3070,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1800373955}
-        m_MethodName: randomSpawn
+        m_MethodName: RandomSpawn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3219,7 +3220,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160430296}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -3227,13 +3228,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!4 &160430301 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 044e50ba66b4e6746a80fe3506f08e31,
-    type: 3}
-  m_PrefabInstance: {fileID: 160430295}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &160430302
+--- !u!114 &160430299
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3245,8 +3240,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204ab59934b2edb4788a10bf6fe148c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floor: {fileID: 1257762278}
-  time: 2
+  time: 3
+  minAngleToBeDeleted: -80
+  maxAngleToBeDeleted: 80
+--- !u!4 &160430301 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 044e50ba66b4e6746a80fe3506f08e31,
+    type: 3}
+  m_PrefabInstance: {fileID: 160430295}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -3646,9 +3648,8 @@ GameObject:
   m_Component:
   - component: {fileID: 479780640}
   - component: {fileID: 479780639}
-  - component: {fileID: 479780641}
   m_Layer: 0
-  m_Name: camLimit
+  m_Name: Limit
   m_TagString: camLimit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3681,19 +3682,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &479780641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479780638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d742d1f7dee99454d826655ca4845f4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stopCamera: 1
 --- !u!1 &491057467
 GameObject:
   m_ObjectHideFlags: 0
@@ -5204,7 +5192,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 20.95, y: 1, z: 1.8}
+  m_LocalPosition: {x: 21.09, y: 1, z: 1.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5302,6 +5290,8 @@ MonoBehaviour:
   cam: {fileID: 0}
   target: {fileID: 2089290924}
   offset: 3
+  camLimitInX: 8
+  defaultCamPos: {x: 21.09, y: 1, z: 1.8}
 --- !u!65 &534669909
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5672,7 +5662,6 @@ MonoBehaviour:
   scoreValue: 10
   scoreToWin: 100
   shoots: 3
-  player: {fileID: 0}
 --- !u!4 &651901347
 Transform:
   m_ObjectHideFlags: 0
@@ -6131,7 +6120,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 759255614}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -6139,13 +6128,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!4 &759255619 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 044e50ba66b4e6746a80fe3506f08e31,
-    type: 3}
-  m_PrefabInstance: {fileID: 759255613}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &759255620
+--- !u!114 &759255617
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6157,8 +6140,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204ab59934b2edb4788a10bf6fe148c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floor: {fileID: 1257762278}
-  time: 2
+  time: 3
+  minAngleToBeDeleted: -80
+  maxAngleToBeDeleted: 80
+--- !u!4 &759255619 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 044e50ba66b4e6746a80fe3506f08e31,
+    type: 3}
+  m_PrefabInstance: {fileID: 759255613}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &806355276
 GameObject:
   m_ObjectHideFlags: 0
@@ -6335,7 +6325,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 877316097}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -6343,13 +6333,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!4 &877316102 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 044e50ba66b4e6746a80fe3506f08e31,
-    type: 3}
-  m_PrefabInstance: {fileID: 877316096}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &877316103
+--- !u!114 &877316100
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6361,8 +6345,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204ab59934b2edb4788a10bf6fe148c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floor: {fileID: 1257762278}
-  time: 2
+  time: 3
+  minAngleToBeDeleted: -80
+  maxAngleToBeDeleted: 80
+--- !u!4 &877316102 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 044e50ba66b4e6746a80fe3506f08e31,
+    type: 3}
+  m_PrefabInstance: {fileID: 877316096}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &881363311
 GameObject:
   m_ObjectHideFlags: 0
@@ -6500,7 +6491,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 966305481}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -6508,13 +6499,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!4 &966305486 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 044e50ba66b4e6746a80fe3506f08e31,
-    type: 3}
-  m_PrefabInstance: {fileID: 966305480}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &966305487
+--- !u!114 &966305484
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6526,8 +6511,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204ab59934b2edb4788a10bf6fe148c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floor: {fileID: 1257762278}
-  time: 2
+  time: 3
+  minAngleToBeDeleted: -80
+  maxAngleToBeDeleted: 80
+--- !u!4 &966305486 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 044e50ba66b4e6746a80fe3506f08e31,
+    type: 3}
+  m_PrefabInstance: {fileID: 966305480}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1085193953
 GameObject:
   m_ObjectHideFlags: 0
@@ -9341,7 +9333,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1463933332}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -9349,13 +9341,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!4 &1463933337 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 044e50ba66b4e6746a80fe3506f08e31,
-    type: 3}
-  m_PrefabInstance: {fileID: 1463933331}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1463933338
+--- !u!114 &1463933335
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9367,8 +9353,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204ab59934b2edb4788a10bf6fe148c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floor: {fileID: 1257762278}
-  time: 2
+  time: 3
+  minAngleToBeDeleted: -80
+  maxAngleToBeDeleted: 80
+--- !u!4 &1463933337 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 044e50ba66b4e6746a80fe3506f08e31,
+    type: 3}
+  m_PrefabInstance: {fileID: 1463933331}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1470000270
 GameObject:
   m_ObjectHideFlags: 0
@@ -11963,6 +11956,21 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2013773796}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1473721766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473721765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 204ab59934b2edb4788a10bf6fe148c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 3
+  minAngleToBeDeleted: -80
+  maxAngleToBeDeleted: 80
 --- !u!4 &1473721768 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 044e50ba66b4e6746a80fe3506f08e31,
@@ -11977,7 +11985,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1473721765}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -11999,20 +12007,6 @@ CapsuleCollider:
   m_Height: 0.75999993
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1473721771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1473721765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 204ab59934b2edb4788a10bf6fe148c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  floor: {fileID: 1257762278}
-  time: 2
 --- !u!43 &1610185367
 Mesh:
   m_ObjectHideFlags: 0
@@ -12397,7 +12391,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1661931890}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -12405,13 +12399,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!4 &1661931895 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 044e50ba66b4e6746a80fe3506f08e31,
-    type: 3}
-  m_PrefabInstance: {fileID: 1661931889}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1661931896
+--- !u!114 &1661931893
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12423,8 +12411,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204ab59934b2edb4788a10bf6fe148c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floor: {fileID: 1257762278}
-  time: 2
+  time: 3
+  minAngleToBeDeleted: -80
+  maxAngleToBeDeleted: 80
+--- !u!4 &1661931895 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 044e50ba66b4e6746a80fe3506f08e31,
+    type: 3}
+  m_PrefabInstance: {fileID: 1661931889}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1716974917
 Mesh:
   m_ObjectHideFlags: 0
@@ -15005,7 +15000,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1990341244}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -15013,13 +15008,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!4 &1990341249 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 044e50ba66b4e6746a80fe3506f08e31,
-    type: 3}
-  m_PrefabInstance: {fileID: 1990341243}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1990341250
+--- !u!114 &1990341247
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -15031,8 +15020,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204ab59934b2edb4788a10bf6fe148c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floor: {fileID: 1257762278}
-  time: 2
+  time: 3
+  minAngleToBeDeleted: -80
+  maxAngleToBeDeleted: 80
+--- !u!4 &1990341249 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 044e50ba66b4e6746a80fe3506f08e31,
+    type: 3}
+  m_PrefabInstance: {fileID: 1990341243}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1991391258
 GameObject:
   m_ObjectHideFlags: 0
@@ -15367,7 +15363,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2072706136}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -15375,13 +15371,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!4 &2072706141 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 044e50ba66b4e6746a80fe3506f08e31,
-    type: 3}
-  m_PrefabInstance: {fileID: 2072706135}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2072706142
+--- !u!114 &2072706139
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -15393,8 +15383,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204ab59934b2edb4788a10bf6fe148c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floor: {fileID: 1257762278}
-  time: 2
+  time: 3
+  minAngleToBeDeleted: -80
+  maxAngleToBeDeleted: 80
+--- !u!4 &2072706141 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 044e50ba66b4e6746a80fe3506f08e31,
+    type: 3}
+  m_PrefabInstance: {fileID: 2072706135}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2075784292
 GameObject:
   m_ObjectHideFlags: 0
@@ -16142,7 +16139,7 @@ PrefabInstance:
     - target: {fileID: 1618941221929500312, guid: de47f119dd3b197419f4bff77e556e49,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.282
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1618941221929500312, guid: de47f119dd3b197419f4bff77e556e49,
         type: 3}
@@ -16238,7 +16235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407ba520e3b2ed4478dd92c9ca26cd2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 5
   rotationSpeed: 1
   rightLimiter: 3.4
   leftLimiter: 0.4
@@ -16247,11 +16244,10 @@ MonoBehaviour:
   minImpulseSpeed: 200
   impulseSum: 10
   alreadyShooted: 0
+  timeToResetBall: 3
   activeSlowmo: 0
-  resetTime: 3
   powerBar: {fileID: 1315883327}
   powerText: {fileID: 70162026}
-  tm: {fileID: 826228075}
 --- !u!1 &2090650847
 GameObject:
   m_ObjectHideFlags: 0

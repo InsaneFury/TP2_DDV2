@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class randomPinSpawner : MonoBehaviour
+public class RandomPinSpawner : MonoBehaviour
 {
     [Header("SpawnerSettings")]
     public GameObject prefab;
@@ -17,28 +17,34 @@ public class randomPinSpawner : MonoBehaviour
 
     List<GameObject> pines;
 
-    private void Start() {
+    private void Start()
+    {
         pines = new List<GameObject>();
-        for (int i = 0; i < amount; i++) {
+        for (int i = 0; i < amount; i++)
+        {
             Vector3 pos = center + new Vector3(
             Random.Range(-size.x / 2, size.x / 2),
             Random.Range(-size.y / 2, size.y / 2),
             Random.Range(-size.z / 2, size.z / 2));
             pines.Add(Instantiate(prefab, pos, Quaternion.identity));
 
-            foreach (GameObject pin in pines) {
+            foreach (GameObject pin in pines)
+            {
                 pin.SetActive(false);
             }
         }
     }
 
-    private void OnDrawGizmosSelected() {
+    private void OnDrawGizmosSelected()
+    {
         Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
         Gizmos.DrawCube(center, size);
     }
 
-    public void RandomSpawn() {
-        foreach (GameObject pin in pines) {
+    public void RandomSpawn()
+    {
+        foreach (GameObject pin in pines)
+        {
             Vector3 pos = center + new Vector3(
             Random.Range(-size.x / 2, size.x / 2),
             Random.Range(-size.y / 2, size.y / 2),
@@ -46,7 +52,8 @@ public class randomPinSpawner : MonoBehaviour
             pin.transform.position = pos;
             pin.transform.rotation = prefab.transform.rotation;
             pin.SetActive(true);
-            if (explosiveModeOn) {
+            if (explosiveModeOn)
+            {
                 pin.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, pos, explosionRadius);
             }
         }

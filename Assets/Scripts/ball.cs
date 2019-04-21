@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class ball : MonoBehaviour
+public class Ball : MonoBehaviour
 {
 
     //Ball
@@ -20,6 +20,9 @@ public class ball : MonoBehaviour
     public bool  alreadyShooted;
     public float timeToResetBall;
 
+    [HideInInspector]
+    public bool noMoreShoots; //This variable is used to verificate if is it your last shoot
+
     [Header("SlowMoSettings")]
     public bool activeSlowmo = false;
 
@@ -27,17 +30,22 @@ public class ball : MonoBehaviour
     public Slider powerBar;
     public TextMeshProUGUI powerText;
 
+    
     float moveHorizontal;
     Vector3 defaultPos;
     Rigidbody rb;
+    CameraFollow cam;
 
     void Start()
     {
+        noMoreShoots = false;
         alreadyShooted = false;
         rb = GetComponent<Rigidbody>();
         minImpulseSpeed = 200f;
         impulseSpeed = minImpulseSpeed;
         defaultPos = transform.position;
+        rb.constraints = RigidbodyConstraints.FreezeRotationX;
+        cam = FindObjectOfType<Camera>().GetComponent<CameraFollow>();
     }
 
     void Update()
@@ -47,7 +55,9 @@ public class ball : MonoBehaviour
         moveHorizontal = Input.GetAxis("Horizontal");
         if (moveHorizontal != 0 && (alreadyShooted == false))
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveHorizontal * Time.deltaTime);
+            transform.position = new Vector3(transform.position.x, 
+                                             transform.position.y,
+                                             transform.position.z + moveHorizontal * moveSpeed * Time.deltaTime);
         }
 
         if (Input.GetButton("Jump") && (alreadyShooted == false))
@@ -61,8 +71,11 @@ public class ball : MonoBehaviour
                 }
             }
         }
-        if (Input.GetKeyUp("space") && (alreadyShooted == false) && ScoreManager.Instance().shoots > 0)
+        if (Input.GetKeyUp("space") 
+            && (alreadyShooted == false) 
+            && ScoreManager.Instance().shoots > 0)
         {
+            rb.constraints = RigidbodyConstraints.None;
             rb.AddForce(Vector3.left * impulseSpeed * Time.fixedDeltaTime, ForceMode.Impulse);
             alreadyShooted = true;
             ScoreManager.Instance().shoots--;
@@ -77,26 +90,30 @@ public class ball : MonoBehaviour
         }
         if (col.CompareTag("canaleta"))
         {
-            StartCoroutine(resetBallPos(timeToResetBall));
+            StartCoroutine(ResetBallPos(timeToResetBall));
         }
     }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("canaleta"))
         {
-            StartCoroutine(resetBallPos(timeToResetBall));
+            StartCoroutine(ResetBallPos(timeToResetBall));
         }
     }
 
-    public IEnumerator resetBallPos(float time)
+    public IEnumerator ResetBallPos(float time)
     {
         yield return new WaitForSeconds(time);
+        cam.ResetCamPos();
         transform.position = defaultPos;
         alreadyShooted = false;
-        camera_follow.nonStop = true;
         rb.isKinematic = true;
         rb.isKinematic = false;
-        StopCoroutine("resetBallPos");
+        if (ScoreManager.Instance().shoots == 0)
+        {
+            noMoreShoots = true;
+        }
+        StopCoroutine("ResetBallPos");
     }
 
     public void activeSlowMoBTN()
