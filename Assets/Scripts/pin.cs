@@ -4,42 +4,46 @@ using UnityEngine;
 
 public class pin : MonoBehaviour
 {
-    float angle;
-    public Transform floor;
-    bool pinOut;
-    GameObject gManager;
-    scoreManager sManager;
-    Transform originalPos;
+    [Header("PinSettings")]
     public float time;
+    public float minAngleToBeDeleted = -80f;
+    public float maxAngleToBeDeleted = 80f;
 
-    private void Start() {
-        gManager = GameObject.Find("GameManager");
-        sManager = gManager.GetComponent<scoreManager>();
+    float angle;
+    bool pinOut;
+    Transform originalPos;
+
+    void Start()
+    {
         pinOut = false;
         originalPos = transform;
     }
-    // Update is called once per frame
+
     void Update()
     {
-        angle = Quaternion.Angle(transform.rotation, floor.rotation);
-
-        if ((angle > 80 || angle < -80) &&(!pinOut)) {
-            sManager.score += sManager.scoreValue;
-            pinOut = true;
-            StartCoroutine(hideDropedPines(time));
+        if (transform.localEulerAngles.z > maxAngleToBeDeleted || transform.localEulerAngles.z < minAngleToBeDeleted ||
+            transform.localEulerAngles.x > maxAngleToBeDeleted || transform.localEulerAngles.x < minAngleToBeDeleted)
+        {
+            if (!pinOut)
+            {
+                ScoreManager.Instance().score += ScoreManager.Instance().scoreValue;
+                pinOut = true;
+                StartCoroutine(HideDropedPines(time));
+            }
         }
     }
 
-   public void resetPin() {
+    public void ResetPin()
+    {
         transform.position = originalPos.position;
         transform.rotation = Quaternion.Euler(0, 0, 0);
         gameObject.SetActive(true);
     }
-    
-   
-    public IEnumerator hideDropedPines(float time) {
+
+    public IEnumerator HideDropedPines(float time)
+    {
         yield return new WaitForSeconds(time);
         gameObject.SetActive(false);
-        StopCoroutine("hideDropedPines");
+        StopCoroutine("HideDropedPines");
     }
 }

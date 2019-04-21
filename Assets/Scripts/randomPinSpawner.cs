@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class randomPinSpawner : MonoBehaviour
 {
+    [Header("SpawnerSettings")]
     public GameObject prefab;
-
     public Vector3 center;
     public Vector3 size;
     public int amount = 20;
-    List<GameObject> pines;
+
+    [Header("ExplosionModeSettings")]
     public bool explosiveModeOn = false;
     public float explosionRadius;
     public float explosionForce;
+
+    List<GameObject> pines;
 
     private void Start() {
         pines = new List<GameObject>();
@@ -29,8 +32,12 @@ public class randomPinSpawner : MonoBehaviour
         }
     }
 
-    public void randomSpawn() {
-        
+    private void OnDrawGizmosSelected() {
+        Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
+        Gizmos.DrawCube(center, size);
+    }
+
+    public void RandomSpawn() {
         foreach (GameObject pin in pines) {
             Vector3 pos = center + new Vector3(
             Random.Range(-size.x / 2, size.x / 2),
@@ -43,13 +50,5 @@ public class randomPinSpawner : MonoBehaviour
                 pin.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, pos, explosionRadius);
             }
         }
-        
     }
-
-    private void OnDrawGizmosSelected() {
-        Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
-        Gizmos.DrawCube(center, size);
-    }
-
-    
 }
